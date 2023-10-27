@@ -4,15 +4,9 @@ import streamlit as st
 
 database = st.session_state
 
-"""
-database는 dictionary 입니다.
-database = {} 으로 구성되어 있습니다.
-"""
-
 # To-Do List를 저장할 리스트 생성
 if 'todo_list' not in database:
-    ############# 빈리스트로 만들어주세요
-    database['todo_list'] = 
+    database['todo_list'] = []
 
 if 'option' not in database:
     database['option'] = ''
@@ -42,13 +36,12 @@ with st.form("할 일 추가하기"):
     with col2:
         if st.form_submit_button('추가'):
             if task:
-                todo_item = {"task": task, "done": False}
-                if todo_item not in database["todo_list"]:
-                    ############## database['todo_list'] 에 todo_item을 넣어주세요
+                if {"task": task, "done": False} not in database["todo_list"]:
+                    database['todo_list'].append({"task": task, "done": False})
 
     with col3:
         if st.form_submit_button('초기화'):
-            ############## database의 'todo_list'를 빈 리스트로 만들어 주세요
+            database['todo_list'] = []
 
 item = database['todo_list']
 database['todo_list'] = sorted(item, key=lambda x: x['done'])
@@ -57,7 +50,7 @@ st.write('### 할 일 목록:')
 
 for idx, item in enumerate(database['todo_list']):
     st.divider()
-    v = st.checkbox(############## 이 안에 item의 'task'와 'done'을 순서대로 넣어주세요.)
+    v = st.checkbox(item["task"], item["done"])
     database['todo_list'][idx]["done"] = v
 
 st.divider()
