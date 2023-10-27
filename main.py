@@ -36,8 +36,9 @@ with st.form("할 일 추가하기"):
     with col2:
         if st.form_submit_button('추가'):
             if task:
-                if {"task": task, "done": False} not in database["todo_list"]:
-                    database['todo_list'].append({"task": task, "done": False})
+                todo_item = {"task": task, "done": False}
+                if todo_item not in database["todo_list"]:
+                    # database['todo_list'] 에 todo_item을 넣어주세요
 
     with col3:
         if st.form_submit_button('초기화'):
@@ -50,7 +51,7 @@ st.write('### 할 일 목록:')
 
 for idx, item in enumerate(database['todo_list']):
     st.divider()
-    v = st.checkbox(item["task"], item["done"])
+    v = st.checkbox(# 이 안에 item의 'task'와 'done'을 순서대로 넣어주세요.)
     database['todo_list'][idx]["done"] = v
 
 st.divider()
